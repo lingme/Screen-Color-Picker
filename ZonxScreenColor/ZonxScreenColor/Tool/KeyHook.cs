@@ -19,30 +19,23 @@ namespace ZonxScreenColor
         static int hKeyboardHook = 0;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        // 装载键盘钩子
         public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        // 卸载键盘钩子
         public static extern bool UnhookWindowsHookEx(int idHook);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        // 获取进程句柄
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        // 普通按键消息  
-        private const int WM_KEYDOWN = 0x100;
 
-        // 系统按键消息  
-        private const int WM_SYSKEYDOWN = 0x104;
-
-        //鼠标常量   
-        public const int WH_KEYBOARD_LL = 13;
+        private const int WM_KEYDOWN = 0x100;            // 普通按键消息  
+        private const int WM_SYSKEYDOWN = 0x104;      // 系统按键消息  
+        public const int WH_KEYBOARD_LL = 13;             //鼠标常量   
 
         [StructLayout(LayoutKind.Sequential)]
         public class KeyboardHookStruct
         {
-            public int vkCode;               //表示一个在1到254间的虚似键盘码   
+            public int vkCode;                //表示一个在1到254间的虚似键盘码   
             public int scanCode;             //表示硬件扫描码   
             public int flags;
             public int time;

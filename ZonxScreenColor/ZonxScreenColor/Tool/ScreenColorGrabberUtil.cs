@@ -14,9 +14,10 @@ namespace ZonxScreenColor
     {
         [DllImport("user32.dll")]
         private static extern bool GetCursorPos(ref Point lpPoint);
+
         [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
         private static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
-        // P/Invoke declarations
+
         [DllImport("gdi32.dll")]
         static extern bool BitBlt(IntPtr hdcDest, int xDest, int yDest, int wDest, int hDest, IntPtr hdcSource, int xSrc, int ySrc, CopyPixelOperation rop);
         [DllImport("user32.dll")]
@@ -43,20 +44,14 @@ namespace ZonxScreenColor
         /// </summary>
         /// <param name="mousePointerPosition"></param>
         /// <returns></returns>
-        public static System.Windows.Media.Color GetColorUnderMousePointer(out System.Windows.Point mousePointerPosition)
+        public static System.Windows.Media.Color GetColorUnderMousePointer(int mouseX , int mouseY)
         {
-            var cursorPosition = new Point();
-
-            GetCursorPos(ref cursorPosition);
-
-            mousePointerPosition = new System.Windows.Point(cursorPosition.X, cursorPosition.Y);
-
             var hDesk = GetDesktopWindow();
             var hSrce = GetWindowDC(hDesk);
             var hDest = CreateCompatibleDC(hSrce);
             var hBmp = CreateCompatibleBitmap(hSrce, 1, 1);
             var hOldBmp = SelectObject(hDest, hBmp);
-            var b = BitBlt(hDest, 0, 0, 1, 1, hSrce, cursorPosition.X, cursorPosition.Y, CopyPixelOperation.SourceCopy | CopyPixelOperation.CaptureBlt);
+            var b = BitBlt(hDest, 0, 0, 1, 1, hSrce, mouseX, mouseY, CopyPixelOperation.SourceCopy | CopyPixelOperation.CaptureBlt);
             var bmp = Image.FromHbitmap(hBmp);
 
             SelectObject(hDest, hOldBmp);

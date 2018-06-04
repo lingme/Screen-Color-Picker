@@ -38,8 +38,8 @@
                 Width="128"
                 Height="128"
                 Source="{Binding ImageSource}" />
-                <Rectangle Width="12" Height="2" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="Red"></Rectangle>
-                <Rectangle Width="2" Height="12" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="Red"></Rectangle>
+                <Rectangle Width="12" Height="1" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="Red"></Rectangle>
+                <Rectangle Width="1" Height="12" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="Red"></Rectangle>
             </Grid>
         </Border>
         <Grid Grid.Row="1">

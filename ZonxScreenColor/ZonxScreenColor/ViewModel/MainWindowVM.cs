@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using ZonxScreenColor.Tool;
 
 namespace ZonxScreenColor
 {
@@ -23,11 +24,12 @@ namespace ZonxScreenColor
         private Color screenPixelColor = Colors.White;
         private BitmapImage imageSource = null;
         private KeyHook keyHook;
+        private MouesHook mouseHook;
 
         /// <summary>
         /// 鼠标坐标
         /// </summary>
-        public string P { get { return $"{(position.X - origin.X + 1).ToString()} , {(position.Y - origin.Y + 1).ToString()}"; } }
+        public string P { get { return $"{(position.X - origin.X).ToString()} , {(position.Y - origin.Y).ToString()}"; } }
 
         /// <summary>
         /// 鼠标所在 RGB - R
@@ -82,6 +84,7 @@ namespace ZonxScreenColor
             {
                 return new SimpleDelegateCommand((p) => {
                     keyHook.CloseHook();
+                    mouseHook.CloseHook();
                 });
             }
         }
@@ -111,13 +114,27 @@ namespace ZonxScreenColor
         /// </summary>
         public MainWindowVM()
         {
-            timer.Interval = TimeSpan.FromMilliseconds(50);
-            timer.Tick += Timer_Tick;
-            timer.Start();
+            //timer.Interval = TimeSpan.FromMilliseconds(50);
+            //timer.Tick += Timer_Tick;
+            //timer.Start();
 
             keyHook = new KeyHook();
             keyHook.VM_ActionEvent += KeyHookControlHandle;
             keyHook.LoadHook();
+
+            mouseHook = new MouesHook();
+            mouseHook.VM_ActionEvent += MouseHookControlHandle;
+            mouseHook.LoadHook();
+        }
+
+        /// <summary>
+        /// 鼠标钩子回调
+        /// </summary>
+        private void MouseHookControlHandle(int mouseX,int mouseY)
+        {
+            position = new Point(mouseX, mouseY);
+            ScreenPixelColor = ScreenColorGrabberUtil.GetColorUnderMousePointer(mouseX , mouseY);
+            ImageSource = ScreenColorGrabberUtil.BitmapToBitmapImage(ScreenColorGrabberUtil.GetScreenArea(position, RoiWidth, RoiHeight));
         }
 
         /// <summary>
@@ -136,18 +153,18 @@ namespace ZonxScreenColor
             }
         }
 
-        /// <summary>
-        /// 计时器 - 负责重绘
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            ScreenPixelColor = ScreenColorGrabberUtil.GetColorUnderMousePointer(out position);
+        ///// <summary>
+        ///// 计时器 - 负责重绘
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void Timer_Tick(object sender, EventArgs e)
+        //{
+        //    ScreenPixelColor = ScreenColorGrabberUtil.GetColorUnderMousePointer(out position);
 
-            ImageSource = ScreenColorGrabberUtil.BitmapToBitmapImage(
-                ScreenColorGrabberUtil.GetScreenArea(position, RoiWidth, RoiHeight));
-        }
+        //    ImageSource = ScreenColorGrabberUtil.BitmapToBitmapImage(
+        //        ScreenColorGrabberUtil.GetScreenArea(position, RoiWidth, RoiHeight));
+        //}
 
         #region 数据修改通知
         public event PropertyChangedEventHandler PropertyChanged;
