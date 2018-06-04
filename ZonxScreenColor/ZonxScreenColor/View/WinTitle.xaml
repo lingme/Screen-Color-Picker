@@ -7,10 +7,10 @@
     x:Name="win"
     Title="ZonxScreenColor"
     Height="50"
-    Topmost="True"
     AllowsTransparency="True"
     Background="Transparent"
     SizeToContent="Width"
+    Topmost="True"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -48,7 +48,7 @@
     </Window.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Rectangle
@@ -59,7 +59,8 @@
         <Ellipse
             x:Name="eli"
             Width="30"
-            Height="30" />
+            Height="30"
+            Margin="10,0,10,0" />
         <TextBlock
             x:Name="text"
             Grid.Column="1"
