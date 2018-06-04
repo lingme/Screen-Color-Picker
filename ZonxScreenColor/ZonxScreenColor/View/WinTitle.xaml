@@ -1,0 +1,56 @@
+﻿<Window
+    x:Class="ZonxScreenColor.View.WinTitle"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="win"
+    Title="WinTitle"
+    Height="50"
+    AllowsTransparency="True"
+    Background="Transparent"
+    SizeToContent="Width"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        FillBehavior="HoldEnd"
+                        RepeatBehavior="Forever"
+                        Storyboard.TargetName="win"
+                        Storyboard.TargetProperty="(UIElement.Opacity)"
+                        From="0"
+                        To="1"
+                        Duration="0:0:3" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Rectangle
+            x:Name="rec"
+            Grid.ColumnSpan="2"
+            Fill="Black"
+            Opacity="0.5" />
+        <Ellipse
+            x:Name="eli"
+            Width="30"
+            Height="30"
+            Fill="White" />
+        <TextBlock
+            x:Name="text"
+            Grid.Column="1"
+            Margin="0,0,10,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="White"
+            Text="RGB（181,254,254） 已复制" />
+    </Grid>
+</Window>

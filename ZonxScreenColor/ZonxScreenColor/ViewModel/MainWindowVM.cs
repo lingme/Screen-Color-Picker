@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using ZonxScreenColor.Tool;
+using ZonxScreenColor.View;
 
 namespace ZonxScreenColor
 {
@@ -18,18 +20,17 @@ namespace ZonxScreenColor
     {
         private const int RoiWidth = 11;                                              //区域放大宽比
         private const int RoiHeight = 11;                                             //区域放大高比
-        private DispatcherTimer timer = new DispatcherTimer();          //刷新绘制计时器
-        private Point origin = new Point(0.0, 0.0);                                
-        private Point position = new Point(0.0, 0.0);
+        private DispatcherTimer timer;                                                //刷新绘制计时器                       
+        private Point position;
         private Color screenPixelColor = Colors.White;
         private BitmapImage imageSource = null;
         private KeyHook keyHook;
-        private MouesHook mouseHook;
+        private WinTitle Titlewin;
 
         /// <summary>
         /// 鼠标坐标
         /// </summary>
-        public string P { get { return $"{(position.X - origin.X).ToString()} , {(position.Y - origin.Y).ToString()}"; } }
+        public string P { get { return $"{(position.X + 1).ToString()} , {(position.Y + 1).ToString()}"; } }
 
         /// <summary>
         /// 鼠标所在 RGB - R
@@ -84,7 +85,6 @@ namespace ZonxScreenColor
             {
                 return new SimpleDelegateCommand((p) => {
                     keyHook.CloseHook();
-                    mouseHook.CloseHook();
                 });
             }
         }
@@ -114,57 +114,43 @@ namespace ZonxScreenColor
         /// </summary>
         public MainWindowVM()
         {
-            //timer.Interval = TimeSpan.FromMilliseconds(50);
-            //timer.Tick += Timer_Tick;
-            //timer.Start();
-
             keyHook = new KeyHook();
-            keyHook.VM_ActionEvent += KeyHookControlHandle;
+            keyHook.VM_ActionEvent += KeyHookEvent;
             keyHook.LoadHook();
 
-            mouseHook = new MouesHook();
-            mouseHook.VM_ActionEvent += MouseHookControlHandle;
-            mouseHook.LoadHook();
-        }
-
-        /// <summary>
-        /// 鼠标钩子回调
-        /// </summary>
-        private void MouseHookControlHandle(int mouseX,int mouseY)
-        {
-            position = new Point(mouseX, mouseY);
-            ScreenPixelColor = ScreenColorGrabberUtil.GetColorUnderMousePointer(mouseX , mouseY);
-            ImageSource = ScreenColorGrabberUtil.BitmapToBitmapImage(ScreenColorGrabberUtil.GetScreenArea(position, RoiWidth, RoiHeight));
+            timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(50) };
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
         /// <summary>
         /// 键盘钩子回调
         /// </summary>
         /// <param name="key"></param>
-        private void KeyHookControlHandle(Key key)
+        private void KeyHookEvent(Key key)
         {
-            if(key == Key.R)
+            string str = string.Empty;
+            if(key == Key.R || key == Key.H)
             {
-                Clipboard.SetDataObject(new DataObject(DataFormats.Text, $"{screenPixelColor.R},{screenPixelColor.G},{screenPixelColor.B}", true), true);
-            }
-            if (key == Key.H)
-            {
-                Clipboard.SetDataObject(new DataObject(DataFormats.Text, Hex, true), true);
+                Clipboard.SetDataObject(new DataObject(
+                    DataFormats.Text,
+                    key == Key.R ? $"{screenPixelColor.R},{screenPixelColor.G},{screenPixelColor.B}" : Hex,
+                    true), true);
+                Titlewin = new WinTitle(screenPixelColor, key == Key.R ? $"RGB（{screenPixelColor.R},{screenPixelColor.G},{screenPixelColor.B}）" : Hex);
+                Titlewin.Show();
             }
         }
 
-        ///// <summary>
-        ///// 计时器 - 负责重绘
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void Timer_Tick(object sender, EventArgs e)
-        //{
-        //    ScreenPixelColor = ScreenColorGrabberUtil.GetColorUnderMousePointer(out position);
-
-        //    ImageSource = ScreenColorGrabberUtil.BitmapToBitmapImage(
-        //        ScreenColorGrabberUtil.GetScreenArea(position, RoiWidth, RoiHeight));
-        //}
+        /// <summary>
+        /// 计时器 - 负责重绘
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            ScreenPixelColor = ScreenColorGrabberUtil.GetColorUnderMousePointer(out position);
+            ImageSource = ScreenColorGrabberUtil.BitmapToBitmapImage(ScreenColorGrabberUtil.GetScreenArea(position, RoiWidth, RoiHeight));
+        }
 
         #region 数据修改通知
         public event PropertyChangedEventHandler PropertyChanged;
