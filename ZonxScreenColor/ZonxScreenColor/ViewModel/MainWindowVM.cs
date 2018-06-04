@@ -136,7 +136,7 @@ namespace ZonxScreenColor
                     DataFormats.Text,
                     key == Key.R ? $"{screenPixelColor.R},{screenPixelColor.G},{screenPixelColor.B}" : Hex,
                     true), true);
-                Titlewin = new WinTitle(screenPixelColor, key == Key.R ? $"RGB（{screenPixelColor.R},{screenPixelColor.G},{screenPixelColor.B}）" : Hex);
+                Titlewin = new WinTitle(screenPixelColor, key == Key.R ? $"RGB（{screenPixelColor.R},{screenPixelColor.G},{screenPixelColor.B}）" : $"HEX（{Hex}）");
                 Titlewin.Show();
             }
         }

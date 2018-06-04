@@ -5,8 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="win"
-    Title="WinTitle"
+    Title="ZonxScreenColor"
     Height="50"
+    Topmost="True"
     AllowsTransparency="True"
     Background="Transparent"
     SizeToContent="Width"
@@ -25,6 +26,22 @@
                         From="0"
                         To="1"
                         Duration="0:0:3" />
+                    <DoubleAnimation
+                        FillBehavior="HoldEnd"
+                        RepeatBehavior="Forever"
+                        Storyboard.TargetName="win"
+                        Storyboard.TargetProperty="(UIElement.Opacity)"
+                        From="1"
+                        To="1"
+                        Duration="0:0:3" />
+                    <DoubleAnimation
+                        FillBehavior="HoldEnd"
+                        RepeatBehavior="Forever"
+                        Storyboard.TargetName="win"
+                        Storyboard.TargetProperty="(UIElement.Opacity)"
+                        From="1"
+                        To="0"
+                        Duration="0:0:3" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -38,12 +55,11 @@
             x:Name="rec"
             Grid.ColumnSpan="2"
             Fill="Black"
-            Opacity="0.5" />
+            Opacity="0.85" />
         <Ellipse
             x:Name="eli"
             Width="30"
-            Height="30"
-            Fill="White" />
+            Height="30" />
         <TextBlock
             x:Name="text"
             Grid.Column="1"

@@ -27,19 +27,13 @@ namespace ZonxScreenColor.View
             InitializeComponent();
             eli.Fill = new SolidColorBrush(color);
             text.Text = $"{str} 已复制";
-            Title = "ZonxScreenColor";
 
             timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
-            timer.Tick += Timer_Tick;
+            timer.Tick += (s,e) => {
+                if (++second == 3)
+                    Close();
+            };
             timer.Start();
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if(++second == 6)
-            {
-                this.Close();
-            }
         }
     }
 }
