@@ -1,18 +1,18 @@
-# Screen_ColorPicker
+# Screen Color Picker
 ---
-写控件有时候需要抓取屏幕某区域颜色，做法是截图然后PS，现在自己写一个屏幕取色器
+Write controls sometimes need to grab the color of an area of the screen, the way is to take a screenshot and then PS, now write yourself a screen color
 
-#### 快捷键 - R
+#### Keymap - R
 
-复制 RGB 颜色
+Copy RGB color data
 
 ![43](https://github.com/lingme/Picture_Bucket/raw/master/Screen_ColorPicker_img/index_1.png)
 ![43](https://github.com/lingme/Picture_Bucket/raw/master/Screen_ColorPicker_img/index_3.png)
 
 
-#### 快捷键 - H
+#### Keymap - H
 
-复制 16 进制颜色
+Copy 16 scale color data
 
 ![43](https://github.com/lingme/Picture_Bucket/raw/master/Screen_ColorPicker_img/index_2.png)
 ![43](https://github.com/lingme/Picture_Bucket/raw/master/Screen_ColorPicker_img/index_4.png)
