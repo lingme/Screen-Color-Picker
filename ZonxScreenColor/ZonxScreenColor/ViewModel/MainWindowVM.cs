@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using ZonxScreenColor.Tool;
 using ZonxScreenColor.View;
 
 namespace ZonxScreenColor
@@ -49,9 +43,9 @@ namespace ZonxScreenColor
             }
         }
 
-        public SimpleDelegateCommand CloseCommand
+        public DelegateCommand CloseCommand
         {
-            get => new SimpleDelegateCommand((p) =>
+            get => new DelegateCommand((p) =>
             {
                 keyHook.CloseHook();
             });

@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ZonxScreenColor
 {
@@ -24,8 +13,8 @@ namespace ZonxScreenColor
         {
             InitializeComponent();
 
-            SolidColorBrush b = (SolidColorBrush)Background;
-            Background = new SolidColorBrush(Color.FromArgb(0, b.Color.R, b.Color.G, b.Color.B));
+            SolidColorBrush color = (SolidColorBrush)Background;
+            Background = new SolidColorBrush(Color.FromArgb(0, color.Color.R, color.Color.G, color.Color.B));
             RenderOptions.SetBitmapScalingMode(pickImage, BitmapScalingMode.NearestNeighbor);
 
             pickImage.MouseMove += PickImage_MouseMove;

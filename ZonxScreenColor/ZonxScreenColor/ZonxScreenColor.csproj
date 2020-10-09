@@ -97,7 +97,7 @@
     </ApplicationDefinition>
     <Compile Include="Tool\MouesHook.cs" />
     <Compile Include="Tool\ScreenColorGrabberUtil.cs" />
-    <Compile Include="Tool\SimpleDelegateCommand.cs" />
+    <Compile Include="Tool\DelegateCommand.cs" />
     <Compile Include="View\WinTitle.xaml.cs">
       <DependentUpon>WinTitle.xaml</DependentUpon>
     </Compile>
