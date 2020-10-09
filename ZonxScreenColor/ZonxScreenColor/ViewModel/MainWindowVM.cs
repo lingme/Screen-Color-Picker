@@ -18,57 +18,30 @@ namespace ZonxScreenColor
 {
     public class MainWindowVM : INotifyPropertyChanged
     {
-        private const int RoiWidth = 11;                                              //区域放大宽比
-        private const int RoiHeight = 11;                                             //区域放大高比
-        private DispatcherTimer timer;                                                //刷新绘制计时器                       
+        private const int RoiWidth = 11;
+        private const int RoiHeight = 11;
+        private DispatcherTimer timer;
         private Point position;
         private Color screenPixelColor = Colors.White;
         private BitmapImage imageSource = null;
         private KeyHook keyHook;
         private WinTitle Titlewin;
 
-        /// <summary>
-        /// 鼠标坐标
-        /// </summary>
-        public string P { get { return $"{(position.X + 1).ToString()} , {(position.Y + 1).ToString()}"; } }
+        public string P => $"{position.X + 1} , {position.Y + 1}";
 
-        /// <summary>
-        /// 鼠标所在 RGB - R
-        /// </summary>
-        public int R { get { return screenPixelColor.R; } }
+        public int R => screenPixelColor.R;
 
-        /// <summary>
-        /// 鼠标所在 RGB - G
-        /// </summary>
-        public int G { get { return screenPixelColor.G; } }
+        public int G => screenPixelColor.G;
 
-        /// <summary>
-        /// 鼠标所在 RGB - B
-        /// </summary>
-        public int B { get { return screenPixelColor.B; } }
+        public int B => screenPixelColor.B;
 
-        /// <summary>
-        /// 鼠标所在16进制颜色
-        /// </summary>
-        public string Hex
-        {
-            get
-            {
-                return $"#{screenPixelColor.A.ToString("X2")}{screenPixelColor.R.ToString("X2")}{screenPixelColor.G.ToString("X2")}{screenPixelColor.B.ToString("X2")}";
-            }
-        }
+        public string Hex => $"#{screenPixelColor.A:X2}{screenPixelColor.R:X2}{screenPixelColor.G:X2}{screenPixelColor.B:X2}";
 
-        /// <summary>
-        /// 鼠标所在Brush颜色
-        /// </summary>
-        public SolidColorBrush Brush { get { return new SolidColorBrush(screenPixelColor); } }
+        public SolidColorBrush Brush => new SolidColorBrush(screenPixelColor); 
 
-        /// <summary>
-        /// 鼠标所在区域放大
-        /// </summary>
         public BitmapImage ImageSource
         {
-            get { return imageSource; }
+            get => imageSource;
             set
             {
                 imageSource = value;
@@ -76,25 +49,17 @@ namespace ZonxScreenColor
             }
         }
 
-        /// <summary>
-        /// 关闭处理
-        /// </summary>
         public SimpleDelegateCommand CloseCommand
         {
-            get
+            get => new SimpleDelegateCommand((p) =>
             {
-                return new SimpleDelegateCommand((p) => {
-                    keyHook.CloseHook();
-                });
-            }
+                keyHook.CloseHook();
+            });
         }
 
-        /// <summary>
-        /// 获取指针所在位置颜色
-        /// </summary>
         public Color ScreenPixelColor
         {
-            get { return screenPixelColor; }
+            get => screenPixelColor;
             set
             {
                 screenPixelColor = value;
@@ -109,9 +74,6 @@ namespace ZonxScreenColor
             }
         }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
         public MainWindowVM()
         {
             keyHook = new KeyHook();
@@ -123,14 +85,10 @@ namespace ZonxScreenColor
             timer.Start();
         }
 
-        /// <summary>
-        /// 键盘钩子回调
-        /// </summary>
-        /// <param name="key"></param>
         private void KeyHookEvent(Key key)
         {
             string str = string.Empty;
-            if(key == Key.R || key == Key.H)
+            if (key == Key.R || key == Key.H)
             {
                 Clipboard.SetDataObject(new DataObject(
                     DataFormats.Text,
@@ -141,18 +99,13 @@ namespace ZonxScreenColor
             }
         }
 
-        /// <summary>
-        /// 计时器 - 负责重绘
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
             ScreenPixelColor = ScreenColorGrabberUtil.GetColorUnderMousePointer(out position);
             ImageSource = ScreenColorGrabberUtil.BitmapToBitmapImage(ScreenColorGrabberUtil.GetScreenArea(position, RoiWidth, RoiHeight));
         }
 
-        #region 数据修改通知
+        #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string info)

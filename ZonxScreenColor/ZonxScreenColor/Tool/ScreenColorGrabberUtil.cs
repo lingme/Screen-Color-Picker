@@ -39,11 +39,6 @@ namespace ZonxScreenColor
 
         private static Bitmap screenPixel = new Bitmap(1, 1, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-        /// <summary>
-        /// 获取鼠标指针所在颜色
-        /// </summary>
-        /// <param name="mousePointerPosition"></param>
-        /// <returns></returns>
         public static System.Windows.Media.Color GetColorUnderMousePointer(out System.Windows.Point mousePointerPosition)
         {
             Point cursorPosition = new Point();
@@ -70,13 +65,6 @@ namespace ZonxScreenColor
             return System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B);
         }
 
-        /// <summary>
-        /// 获取屏幕截图
-        /// </summary>
-        /// <param name="center"></param>
-        /// <param name="roiWidth"></param>
-        /// <param name="roiHeight"></param>
-        /// <returns></returns>
         public static Bitmap GetScreenArea(System.Windows.Point center, int roiWidth, int roiHeight)
         {
             var origin = new Point((int)center.X - roiWidth / 2, (int)center.Y - roiHeight / 2);
@@ -97,11 +85,6 @@ namespace ZonxScreenColor
             return bmp;
         }
 
-        /// <summary>
-        /// 位图转WPF支持System.Windows.Media.Imaging.BitmapImage
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
         public static BitmapImage BitmapToBitmapImage(System.Drawing.Bitmap bitmap)
         {
             using (var memory = new MemoryStream())
@@ -120,11 +103,6 @@ namespace ZonxScreenColor
             }
         }
 
-        /// <summary>
-        /// 绘制中心坐标
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
         public static Bitmap DrawCenter(Bitmap bitmap)
         {
             bitmap.SetPixel(bitmap.Size.Width / 2, bitmap.Size.Height / 2, Color.Red);

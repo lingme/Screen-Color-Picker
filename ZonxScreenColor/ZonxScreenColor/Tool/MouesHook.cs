@@ -46,13 +46,6 @@ namespace ZonxScreenColor.Tool
             public int dwExtraInfo;
         }
 
-        /// <summary>
-        /// 处理函数
-        /// </summary>
-        /// <param name="nCode"></param>
-        /// <param name="wParam"></param>
-        /// <param name="lParam"></param>
-        /// <returns></returns>
         public int MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0)
@@ -63,9 +56,6 @@ namespace ZonxScreenColor.Tool
             return 0;
         }
 
-        /// <summary>
-        /// 装载钩子
-        /// </summary>
         public void LoadHook()
         {
             if(hMouseHook == 0)
@@ -77,9 +67,6 @@ namespace ZonxScreenColor.Tool
             }
         }
 
-        /// <summary>
-        /// 卸载钩子
-        /// </summary>
         public void CloseHook()
         {
             if(hMouseHook != 0)

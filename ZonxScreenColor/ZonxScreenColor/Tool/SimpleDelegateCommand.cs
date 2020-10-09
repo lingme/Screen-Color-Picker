@@ -14,17 +14,8 @@ namespace ZonxScreenColor
 
         public event EventHandler CanExecuteChanged;
 
-        /// <summary>
-        /// 委托命令，不包含canExecute
-        /// </summary>
-        /// <param name="execute"></param>
         public SimpleDelegateCommand(Action<object> execute) : this(execute, null) { }
 
-        /// <summary>
-        /// 委托命令
-        /// </summary>
-        /// <param name="execute"></param>
-        /// <param name="canExecute"></param>
         public SimpleDelegateCommand(Action<object> execute, Predicate<object> canExecute)
         {
             _execute = execute;

@@ -28,15 +28,15 @@ namespace ZonxScreenColor
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
 
-        private const int WM_KEYDOWN = 0x100;            // 普通按键消息  
-        private const int WM_SYSKEYDOWN = 0x104;      // 系统按键消息  
-        public const int WH_KEYBOARD_LL = 13;             //鼠标常量   
+        private const int WM_KEYDOWN = 0x100;
+        private const int WM_SYSKEYDOWN = 0x104;
+        public const int WH_KEYBOARD_LL = 13;
 
         [StructLayout(LayoutKind.Sequential)]
         public class KeyboardHookStruct
         {
-            public int vkCode;                //表示一个在1到254间的虚似键盘码   
-            public int scanCode;             //表示硬件扫描码   
+            public int vkCode;
+            public int scanCode; 
             public int flags;
             public int time;
             public int dwExtraInfo;
@@ -44,13 +44,6 @@ namespace ZonxScreenColor
 
         string str = string.Empty;
 
-        /// <summary>
-        /// 处理函数
-        /// </summary>
-        /// <param name="nCode"></param>
-        /// <param name="wParam"></param>
-        /// <param name="lParam"></param>
-        /// <returns></returns>
         private int KeyboardHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
@@ -62,9 +55,6 @@ namespace ZonxScreenColor
             return 0;
         }
 
-        /// <summary>
-        /// 装载钩子
-        /// </summary>
         public void LoadHook()
         {
             if (hKeyboardHook == 0)
@@ -76,9 +66,6 @@ namespace ZonxScreenColor
             }
         }
 
-        /// <summary>
-        /// 卸载钩子
-        /// </summary>
         public void CloseHook()
         {
             if (hKeyboardHook != 0)
