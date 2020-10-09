@@ -79,6 +79,12 @@ namespace ZonxScreenColor
             timer.Start();
         }
 
+        ~MainWindowVM()
+        {
+            keyHook.VM_ActionEvent -= KeyHookEvent;
+            timer.Tick -= Timer_Tick;
+        }
+
         private void KeyHookEvent(Key key)
         {
             string str = string.Empty;
