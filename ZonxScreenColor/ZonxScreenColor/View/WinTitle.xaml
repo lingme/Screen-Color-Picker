@@ -25,7 +25,7 @@
                         Storyboard.TargetProperty="(UIElement.Opacity)"
                         From="0"
                         To="1"
-                        Duration="0:0:3" />
+                        Duration="0:0:4" />
                     <DoubleAnimation
                         FillBehavior="HoldEnd"
                         RepeatBehavior="Forever"
@@ -33,7 +33,7 @@
                         Storyboard.TargetProperty="(UIElement.Opacity)"
                         From="1"
                         To="1"
-                        Duration="0:0:3" />
+                        Duration="0:0:4" />
                     <DoubleAnimation
                         FillBehavior="HoldEnd"
                         RepeatBehavior="Forever"
@@ -41,7 +41,7 @@
                         Storyboard.TargetProperty="(UIElement.Opacity)"
                         From="1"
                         To="0"
-                        Duration="0:0:3" />
+                        Duration="0:0:4" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>

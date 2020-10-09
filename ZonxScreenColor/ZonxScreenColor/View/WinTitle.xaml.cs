@@ -19,8 +19,9 @@ namespace ZonxScreenColor.View
             text.Text = $"{str} 已复制";
 
             timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
-            timer.Tick += (s,e) => {
-                if (++second == 3)
+            timer.Tick += (s,e) => 
+            {
+                if (++second == 4) 
                     Close();
             };
             timer.Start();
