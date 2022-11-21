@@ -25,6 +25,7 @@ namespace ZonxScreenColor
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 this.DragMove();
+                pickImage.MouseMove += PickImage_MouseMove;
             }
         }
     }
